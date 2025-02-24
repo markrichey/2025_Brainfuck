@@ -6,4 +6,4 @@
 > -      Subtract 1 from c1
 ]        End your loops with the cell pointer on the loop counter
 
-¬
+< .
