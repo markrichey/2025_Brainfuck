@@ -1,11 +1,14 @@
 
-with open('tests/test004.bf', 'r') as file:
+import sys
+
+with open(sys.argv[1], 'r') as file:
     
     valueArray = [0]
     valuePointer = 0
     loopPositionArray = []
     asciiArray = []
     asciiMode = False
+    argumentNumber = 1
     
     singleLineProg = ""
     for line in file:
@@ -68,6 +71,10 @@ with open('tests/test004.bf', 'r') as file:
                     else:
                         currentC = loopPositionArray[len(loopPositionArray) - 1]
 
+                elif stripLineArray[currentC] == ",":
+                    argumentNumber += 1
+                    valueArray[valuePointer] = int(sys.argv[argumentNumber])
+
                 elif stripLineArray[currentC] == "¬": # Debug
                     print("valueArray ",valueArray)
                     print("valuePointer ",valuePointer)
@@ -75,6 +82,7 @@ with open('tests/test004.bf', 'r') as file:
                     print("loopPositionArray ",loopPositionArray)
                     print("asciiMode ",asciiMode)
                     print("asciiArray ",asciiArray)
+                    print("argumentNumber ",argumentNumber)
                 
                 elif stripLineArray[currentC] == "?": # Enable / Disable ASCII Prints
                     if asciiMode:
@@ -96,4 +104,5 @@ with open('tests/test004.bf', 'r') as file:
             print("loopPositionArray ",loopPositionArray)
             print("asciiMode ",asciiMode)
             print("asciiArray ",asciiArray)
+            print("argumentNumber ",argumentNumber)
             exit(1)
