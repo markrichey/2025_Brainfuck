@@ -1,4 +1,4 @@
-with open('test003.bf', 'r') as file:
+with open('tests/test004.bf', 'r') as file:
     
     valueArray = [0]
     valuePointer = 0
