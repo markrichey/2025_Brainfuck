@@ -4,8 +4,8 @@ https://en.wikipedia.org/wiki/Brainfuck
 Character|Instruction Performed|
 ----|----|
 Test|Thing|
+">"|Increment the data pointer by one (to point to the next cell to the right).|
 
->|Increment the data pointer by one (to point to the next cell to the right).|
 <|Decrement the data pointer by one (to point to the next cell to the left).|
 +|Increment the byte at the data pointer by one.|
 -|Decrement the byte at the data pointer by one.|
