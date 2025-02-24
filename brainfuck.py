@@ -3,6 +3,8 @@ with open('tests/test004.bf', 'r') as file:
     valueArray = [0]
     valuePointer = 0
     loopPositionArray = []
+    asciiArray = []
+    asciiMode = False
     
     singleLineProg = ""
     for line in file:
@@ -12,14 +14,16 @@ with open('tests/test004.bf', 'r') as file:
     stripLineArray = list(singleLineProg)
     currentC = -1
     maxC = len(stripLineArray)
-    print("Max C:",maxC)
 
     while currentC < maxC:
+        
         currentC += 1
+        if currentC >= maxC:
+            break
 
         try:
 
-            if stripLineArray[currentC] in (">","<","+","-",".",",","[","]"):
+            if stripLineArray[currentC] in (">","<","+","-",".",",","[","]","¬","?","@"):
                 
                 if stripLineArray[currentC] == ">":
                     valuePointer += 1
@@ -33,21 +37,52 @@ with open('tests/test004.bf', 'r') as file:
                     valueArray[valuePointer] += 1
                 elif stripLineArray[currentC] == "-":
                     valueArray[valuePointer] -= 1
+
                 elif stripLineArray[currentC] == ".":
-                    print(valueArray[valuePointer])
+                    if asciiMode:
+                        asciiArray.append(valueArray[valuePointer])
+                    else:
+                        print("Return: ",valueArray[valuePointer])
+
                 elif stripLineArray[currentC] == "[":
-                    loopPositionArray.append(currentC)
-                    print(loopPositionArray)
+                    # Skip forward condition
+                    if valueArray[valuePointer] == 0:
+                        lookForSkip = True
+                        while lookForSkip:
+                            currentC += 1
+                            if stripLineArray[currentC] == "]":
+                                lookForSkip = False
+                                print("Skipped to ",currentC)
+                    else:
+                        loopPositionArray.append(currentC)
+
                 elif stripLineArray[currentC] == "]":
                     if valueArray[valuePointer] == 0:
+                        print("Popped to ",currentC)
                         loopPositionArray.pop()
-                        print(loopPositionArray)
                     else:
-                        print("Set currentC to ",loopPositionArray[len(loopPositionArray) - 1])
                         currentC = loopPositionArray[len(loopPositionArray) - 1]
 
-        except:
-            break
-        
-    print(valueArray)
+                elif stripLineArray[currentC] == "¬": # Debug
+                    print("valueArray ",valueArray)
+                    print("valuePointer ",valuePointer)
+                    print("currentC ",currentC)
+                    print("loopPositionArray ",loopPositionArray)
+                    print("asciiMode ",asciiMode)
+                    print("asciiArray ",asciiArray)
                 
+                elif stripLineArray[currentC] == "?": # Enable / Disable ASCII Prints
+                    if asciiMode:
+                        asciiMode = False
+                    else:
+                        asciiMode = True
+
+                elif stripLineArray[currentC] == "@": # Print and Empty ASCII
+                    characters = [chr(value) for value in asciiArray]
+                    text = ''.join(characters)
+                    print(text)
+                    asciiArray = []
+
+        except Exception as ex:
+            print(ex)
+            exit(1)

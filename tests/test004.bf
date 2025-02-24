@@ -25,12 +25,14 @@
     [<]                 Move back to the first zero cell you find; this will
                         be Cell #1 which was cleared by the previous loop
     <-                  Decrement the loop Counter in Cell #0
-]                       Loop until Cell #0 is zero; number of iterations is 8
+]                      Loop until Cell #0 is zero; number of iterations is 8
 
 The result of this is:
 Cell no :   0   1   2   3   4   5   6
 Contents:   0   0  72 104  88  32   8
 Pointer :   ^
+
+?                      Turn on ascii mode
 
 >>.                     Cell #2 has value 72 which is 'H'
 >---.                   Subtract 3 from Cell #3 to get 101 which is 'e'
@@ -41,3 +43,5 @@ Pointer :   ^
 +++.------.--------.    Cell #3 for 'rl' and 'd'
 >>+.                    Add 1 to Cell #5 gives us an exclamation point
 >++.                    And finally a newline from Cell #6
+
+@ ? ¬                       Print Message
