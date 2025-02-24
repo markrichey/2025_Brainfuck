@@ -2,7 +2,6 @@ with open('test001.bf', 'r') as file:
     
     valueArray = [0]
     valuePointer = 0
-    loopingArray = []
     
     for line in file:
         
@@ -27,6 +26,7 @@ with open('test001.bf', 'r') as file:
                     valueArray[valuePointer] -= 1
                 elif cmd == ".":
                     print(valueArray[valuePointer])
+
 
     print(valueArray)
                 
