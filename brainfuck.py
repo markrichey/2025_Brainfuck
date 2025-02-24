@@ -1,3 +1,4 @@
+
 with open('tests/test004.bf', 'r') as file:
     
     valueArray = [0]
@@ -45,20 +46,24 @@ with open('tests/test004.bf', 'r') as file:
                         print("Return: ",valueArray[valuePointer])
 
                 elif stripLineArray[currentC] == "[":
+                    
                     # Skip forward condition
                     if valueArray[valuePointer] == 0:
                         lookForSkip = True
+                        loopPositionArray.append(currentC)
                         while lookForSkip:
                             currentC += 1
                             if stripLineArray[currentC] == "]":
-                                lookForSkip = False
-                                print("Skipped to ",currentC)
+                                loopPositionArray.pop()
+                                if len(loopPositionArray) == 0:
+                                    lookForSkip = False
+                            elif stripLineArray[currentC] == "[":
+                                loopPositionArray.append(currentC)
                     else:
                         loopPositionArray.append(currentC)
 
                 elif stripLineArray[currentC] == "]":
                     if valueArray[valuePointer] == 0:
-                        print("Popped to ",currentC)
                         loopPositionArray.pop()
                     else:
                         currentC = loopPositionArray[len(loopPositionArray) - 1]
@@ -85,4 +90,10 @@ with open('tests/test004.bf', 'r') as file:
 
         except Exception as ex:
             print(ex)
+            print("valueArray ",valueArray)
+            print("valuePointer ",valuePointer)
+            print("currentC ",currentC)
+            print("loopPositionArray ",loopPositionArray)
+            print("asciiMode ",asciiMode)
+            print("asciiArray ",asciiArray)
             exit(1)
